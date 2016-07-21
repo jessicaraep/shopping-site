@@ -60,6 +60,12 @@ def show_melon(melon_id):
 def shopping_cart():
     """Display content of shopping cart."""
 
+    print session['cart']
+    for melon_id in session['cart']:
+        print melons.melon_types[melon_id]
+
+    
+
     # TODO: Display the contents of the shopping cart.
 
     # The logic here will be something like:
@@ -83,13 +89,15 @@ def add_to_cart(melon_id):
     """
 
     # Retrieve the value of the key 'cart' from the session. If 'cart' is not
-    # already in session, return an empty list. To the value of the key 'cart',
-    # add melon_id. (Lists can be concatenated.)
-    session['cart'] = session.get('cart', []) + [melon_id]
+    # already in session, return an empty list. Append melon_id to the value of
+    # the key 'cart'.
+    session['cart'] = session.get('cart', [])
+    session['cart'].append(melon_id)
     print session
 
+    flash("Melon was added to cart.")
 
-    return "Oops! This needs to be implemented!"
+    return redirect('/cart')
 
 
 @app.route("/login", methods=["GET"])
